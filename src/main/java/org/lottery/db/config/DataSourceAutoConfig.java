@@ -63,7 +63,11 @@ public class DataSourceAutoConfig implements EnvironmentAware {
     private String routerKey;
 
     /**
-     *  @ConditionalOnMissingBean: 修饰bean的一个注解，当bean被注册成功后，相同的bean只能被注册一次 保证实例只有一个
+     * 注入路由策略对象，便于切面和硬编码注入使用
+     *
+     *
+     *  @ConditionalOnMissingBean: 修饰bean的一个注解，当bean被注册成功后，
+     *  相同的bean只能被注册一次 保证实例只有一个
      *  @Bean
      * @param dbRouterConfig
      * @param dbRouterStrategy
@@ -111,6 +115,12 @@ public class DataSourceAutoConfig implements EnvironmentAware {
         return dynamicDataSource;
     }
 
+    /**
+     *
+     *  创建事务对象，用于编程式事务引用
+     * @param dataSource
+     * @return
+     */
     //编程式事务
     @Bean
     public TransactionTemplate transactionTemplate(DataSource dataSource){
